@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Electricidad: Ley de Coulomb, Campo y Potencial Eléctrico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script>
+MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['\\[','\\]'],['$$','$$']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<script src="deck-stage.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#000; font-family:'Poppins',sans-serif; }
+
+section {
+  background:#0f172a;
+  color:#f1f5f9;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ── Shared helpers ─────────────────── */
+.tag {
+  font-size:24px; font-weight:600; letter-spacing:0.14em;
+  text-transform:uppercase; color:#38bdf8; margin-bottom:16px;
+}
+.slide-title { font-size:64px; font-weight:700; line-height:1.05; color:#f1f5f9; }
+.rule { width:72px; height:4px; border-radius:2px; background:#38bdf8; margin-bottom:48px; }
+.rule-green { background:#4ade80; }
+.body-text { font-size:34px; font-weight:400; line-height:1.55; color:#e2e8f0; }
+.accent-blue  { color:#38bdf8; }
+.accent-green { color:#4ade80; }
+.accent-amber { color:#fbbf24; }
+.accent-pink  { color:#f472b6; }
+
+/* Formula box */
+.fbox {
+  background:rgba(56,189,248,.07);
+  border:2px solid rgba(56,189,248,.28);
+  border-radius:16px; padding:32px 48px; text-align:center;
+}
+.fbox-green {
+  background:rgba(74,222,128,.07);
+  border-color:rgba(74,222,128,.28);
+}
+
+/* Step callout */
+.step {
+  background:rgba(255,255,255,.04);
+  border-left:4px solid #38bdf8;
+  border-radius:0 12px 12px 0;
+  padding:20px 32px;
+}
+.step-label {
+  font-size:20px; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:#38bdf8; margin-bottom:6px;
+}
+
+/* Table */
+table { border-collapse:collapse; width:100%; }
+th { font-size:28px; font-weight:600; padding:18px 28px; text-align:left;
+     background:rgba(56,189,248,.12); color:#38bdf8;
+     border-bottom:2px solid rgba(56,189,248,.3); }
+td { font-size:26px; padding:16px 28px;
+     border-bottom:1px solid rgba(255,255,255,.06); color:#e2e8f0; vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+tr:nth-child(even) td { background:rgba(255,255,255,.025); }
+
+/* Answer callout */
+.answer {
+  border-radius:20px; padding:32px 40px; text-align:center; width:100%;
+  border:2px solid rgba(56,189,248,.35);
+  background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(74,222,128,.07));
+}
+.answer-green { border-color:rgba(74,222,128,.4);
+  background:linear-gradient(135deg,rgba(74,222,128,.12),rgba(56,189,248,.07)); }
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+
+<!-- ═══ SLIDE 1 · PORTADA ══════════════════════════════════════════════ -->
+<section data-label="Portada" style="
+  background:#080e1c; justify-content:center; align-items:flex-start;
+  padding:0 160px; position:relative; overflow:hidden;">
+
+  <!-- Background field-line art -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="bg1" cx="72%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#38bdf8" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#bg1)"/>
+    <g stroke="#38bdf8" fill="none" opacity=".18">
+      <circle cx="1400" cy="540" r="110"/><circle cx="1400" cy="540" r="220"/>
+      <circle cx="1400" cy="540" r="350"/><circle cx="1400" cy="540" r="510"/>
+      <circle cx="1400" cy="540" r="700"/><circle cx="1400" cy="540" r="920"/>
+    </g>
+    <g stroke="#38bdf8" stroke-width="1" opacity=".12">
+      <line x1="1400" y1="540" x2="1920" y2="540"/>
+      <line x1="1400" y1="540" x2="1800" y2="80"/>
+      <line x1="1400" y1="540" x2="1800" y2="1000"/>
+      <line x1="1400" y1="540" x2="1500" y2="0"/>
+      <line x1="1400" y1="540" x2="1500" y2="1080"/>
+      <line x1="1400" y1="540" x2="1000" y2="0"/>
+      <line x1="1400" y1="540" x2="1000" y2="1080"/>
+      <line x1="1400" y1="540" x2="480" y2="540"/>
+    </g>
+  </svg>
+
+
+  <!-- Main copy -->
+  <div style="position:relative;z-index:1;max-width:920px">
+    <div style="font-size:24px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+      color:#4ade80;margin-bottom:28px">Electrostática</div>
+    <div style="display:inline-flex;align-items:center;padding:10px 18px;border-radius:999px;
+      border:1px solid rgba(56,189,248,.22);background:rgba(15,23,42,.42);backdrop-filter:blur(8px);
+      font-size:20px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      color:rgba(125,211,252,.95);box-shadow:0 10px 30px rgba(2,8,23,.18);margin:6px 0 34px 0">
+      F&iacute;sica &middot; 5&deg; A&ntilde;o Secundaria
+    </div>
+    <h1 style="font-size:100px;font-weight:800;line-height:.98;color:#f1f5f9;margin-bottom:44px">
+      Electricidad:<br>
+      <span style="color:#38bdf8">Fuerzas,</span> Campos<br>
+      y Potencial
+    </h1>
+    <p style="font-size:34px;font-weight:300;color:#94a3b8;line-height:1.5">
+      Ley de Coulomb &nbsp;·&nbsp; Campo Eléctrico &nbsp;·&nbsp; Potencial Eléctrico
+    </p>
+  </div>
+
+  <!-- Decorative charge illustration -->
+  <svg style="position:absolute;right:140px;top:50%;transform:translateY(-50%)"
+    width="360" height="360" viewBox="0 0 360 360">
+    <defs>
+      <radialGradient id="cg1" cx="40%" cy="35%" r="65%">
+        <stop offset="0%" stop-color="#7dd3fc"/>
+        <stop offset="100%" stop-color="#0369a1"/>
+      </radialGradient>
+      <filter id="glw"><feGaussianBlur stdDeviation="14" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <circle cx="180" cy="180" r="155" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity=".18"/>
+    <circle cx="180" cy="180" r="120" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity=".25"/>
+    <circle cx="180" cy="180" r="88" fill="url(#cg1)" filter="url(#glw)"/>
+    <line x1="180" y1="148" x2="180" y2="212" stroke="white" stroke-width="9" stroke-linecap="round"/>
+    <line x1="148" y1="180" x2="212" y2="180" stroke="white" stroke-width="9" stroke-linecap="round"/>
+    <!-- 6 radial arrows -->
+    <g stroke="#38bdf8" fill="#38bdf8" stroke-width="2" opacity=".7">
+      <line x1="278" y1="180" x2="340" y2="180"/>
+      <polygon points="340,180 327,173 327,187"/>
+      <line x1="82" y1="180" x2="20" y2="180"/>
+      <polygon points="20,180 33,173 33,187"/>
+      <line x1="180" y1="278" x2="180" y2="340"/>
+      <polygon points="180,340 173,327 187,327"/>
+      <line x1="180" y1="82" x2="180" y2="20"/>
+      <polygon points="180,20 173,33 187,33"/>
+      <line x1="243" y1="243" x2="283" y2="283"/>
+      <polygon points="283,283 269,279 279,269"/>
+      <line x1="117" y1="117" x2="77" y2="77"/>
+      <polygon points="77,77 91,81 81,91"/>
+    </g>
+  </svg>
+</section>
+
+
+<!-- ═══ SLIDE 2 · INTERACCIÓN ELÉCTRICA ══════════════════════════════ -->
+<section data-label="Interacción Eléctrica" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Introducción</div>
+  <h2 class="slide-title" style="margin-bottom:44px">¿Qué es la interacción eléctrica?</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+    <!-- Concepts -->
+    <div style="display:flex;flex-direction:column;gap:36px">
+      <div style="display:flex;gap:22px;align-items:flex-start">
+        <div style="min-width:14px;height:14px;border-radius:50%;background:#38bdf8;margin-top:10px;flex-shrink:0"></div>
+        <p class="body-text">La materia está formada por <span class="accent-blue">átomos</span> con protones (carga +) y electrones (carga −).</p>
+      </div>
+      <div style="display:flex;gap:22px;align-items:flex-start">
+        <div style="min-width:14px;height:14px;border-radius:50%;background:#4ade80;margin-top:10px;flex-shrink:0"></div>
+        <p class="body-text">Cargas del <span class="accent-green">mismo signo se repelen</span>; cargas de <span class="accent-pink">signo opuesto se atraen</span>.</p>
+      </div>
+      <div style="display:flex;gap:22px;align-items:flex-start">
+        <div style="min-width:14px;height:14px;border-radius:50%;background:#fbbf24;margin-top:10px;flex-shrink:0"></div>
+        <p class="body-text">La unidad de carga es el <span class="accent-amber">Coulomb (C)</span>. Carga del electrón: \( e = 1{,}6 \times 10^{-19} \text{ C} \).</p>
+      </div>
+    </div>
+
+    <!-- Diagrams -->
+    <div style="display:flex;flex-direction:column;gap:48px;justify-content:center;align-items:center">
+      <!-- Repulsion -->
+      <div style="text-align:center">
+        <svg width="380" height="140" viewBox="0 0 380 140">
+          <circle cx="90" cy="70" r="46" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+          <text x="90" y="80" text-anchor="middle" font-size="36" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+          <circle cx="290" cy="70" r="46" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+          <text x="290" y="80" text-anchor="middle" font-size="36" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+          <!-- outward arrows -->
+          <line x1="36" y1="70" x2="8" y2="70" stroke="#f87171" stroke-width="3.5"/>
+          <polygon points="8,70 22,63 22,77" fill="#f87171"/>
+          <line x1="344" y1="70" x2="372" y2="70" stroke="#f87171" stroke-width="3.5"/>
+          <polygon points="372,70 358,63 358,77" fill="#f87171"/>
+          <!-- inner dashes -->
+          <line x1="144" y1="70" x2="236" y2="70" stroke="#f87171" stroke-width="2.5" stroke-dasharray="7,5"/>
+        </svg>
+        <p style="font-size:26px;color:#f87171;font-weight:600">Cargas iguales → Repulsión</p>
+      </div>
+
+      <!-- Attraction -->
+      <div style="text-align:center">
+        <svg width="380" height="140" viewBox="0 0 380 140">
+          <circle cx="90" cy="70" r="46" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+          <text x="90" y="80" text-anchor="middle" font-size="36" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+          <circle cx="290" cy="70" r="46" fill="#7f1d1d" stroke="#f87171" stroke-width="3"/>
+          <text x="290" y="82" text-anchor="middle" font-size="44" font-weight="bold" fill="white" font-family="Poppins,sans-serif">−</text>
+          <!-- inward arrows -->
+          <line x1="36" y1="70" x2="8" y2="70" stroke="#4ade80" stroke-width="3.5"/>
+          <polygon points="36,70 22,63 22,77" fill="#4ade80"/>
+          <line x1="344" y1="70" x2="372" y2="70" stroke="#4ade80" stroke-width="3.5"/>
+          <polygon points="344,70 358,63 358,77" fill="#4ade80"/>
+          <line x1="144" y1="70" x2="236" y2="70" stroke="#4ade80" stroke-width="2.5" stroke-dasharray="7,5"/>
+        </svg>
+        <p style="font-size:26px;color:#4ade80;font-weight:600">Cargas opuestas → Atracción</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 3 · LEY DE COULOMB — FÓRMULA ══════════════════════════ -->
+<section data-label="Ley de Coulomb - Fórmula" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Ley de Coulomb</div>
+  <h2 class="slide-title" style="margin-bottom:44px">La fuerza entre dos cargas puntuales</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:center">
+    <div>
+      <!-- Central formula -->
+      <div class="fbox" style="margin-bottom:44px">
+        <div style="font-size:24px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:16px">Ley de Coulomb</div>
+        <div style="font-size:64px;color:#38bdf8;font-weight:300">
+          \[ F = k \cdot \frac{q_1 \cdot q_2}{r^2} \]
+        </div>
+      </div>
+      <!-- Variable grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:22px 26px">
+          <div style="font-size:30px;color:#38bdf8;font-weight:600;margin-bottom:6px">\(k\)</div>
+          <div style="font-size:26px;color:#e2e8f0">Constante de Coulomb</div>
+          <div style="font-size:24px;color:#94a3b8">\(9 \times 10^9 \text{ N·m}^2/\text{C}^2\)</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:22px 26px">
+          <div style="font-size:30px;color:#4ade80;font-weight:600;margin-bottom:6px">\(q_1, q_2\)</div>
+          <div style="font-size:26px;color:#e2e8f0">Cargas eléctricas</div>
+          <div style="font-size:24px;color:#94a3b8">Coulombs (C)</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:22px 26px">
+          <div style="font-size:30px;color:#fbbf24;font-weight:600;margin-bottom:6px">\(r\)</div>
+          <div style="font-size:26px;color:#e2e8f0">Distancia entre cargas</div>
+          <div style="font-size:24px;color:#94a3b8">metros (m)</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:22px 26px">
+          <div style="font-size:30px;color:#f472b6;font-weight:600;margin-bottom:6px">\(F\)</div>
+          <div style="font-size:26px;color:#e2e8f0">Fuerza eléctrica</div>
+          <div style="font-size:24px;color:#94a3b8">Newtons (N)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagram -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:28px">
+      <svg width="480" height="260" viewBox="0 0 480 260">
+        <!-- Charges -->
+        <circle cx="96" cy="130" r="54" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+        <text x="96" y="122" text-anchor="middle" font-size="22" fill="#bfdbfe" font-family="Poppins,sans-serif">q₁</text>
+        <text x="96" y="148" text-anchor="middle" font-size="34" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        <circle cx="384" cy="130" r="54" fill="#7f1d1d" stroke="#f87171" stroke-width="3"/>
+        <text x="384" y="122" text-anchor="middle" font-size="22" fill="#fecaca" font-family="Poppins,sans-serif">q₂</text>
+        <text x="384" y="148" text-anchor="middle" font-size="40" font-weight="bold" fill="white" font-family="Poppins,sans-serif">−</text>
+        <!-- Attraction arrows -->
+        <line x1="158" y1="130" x2="195" y2="130" stroke="#4ade80" stroke-width="4"/>
+        <polygon points="195,130 181,123 181,137" fill="#4ade80"/>
+        <line x1="322" y1="130" x2="285" y2="130" stroke="#4ade80" stroke-width="4"/>
+        <polygon points="285,130 299,123 299,137" fill="#4ade80"/>
+        <text x="170" y="116" font-size="26" fill="#4ade80" font-weight="600" font-family="Poppins,sans-serif">F</text>
+        <text x="306" y="116" font-size="26" fill="#4ade80" font-weight="600" font-family="Poppins,sans-serif">F</text>
+        <!-- Distance indicator -->
+        <line x1="96" y1="218" x2="384" y2="218" stroke="#fbbf24" stroke-width="2.5"/>
+        <line x1="96" y1="210" x2="96" y2="226" stroke="#fbbf24" stroke-width="2.5"/>
+        <line x1="384" y1="210" x2="384" y2="226" stroke="#fbbf24" stroke-width="2.5"/>
+        <text x="240" y="248" text-anchor="middle" font-size="28" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">r</text>
+      </svg>
+      <p style="font-size:28px;color:#94a3b8;text-align:center;max-width:380px;line-height:1.5">
+        F es inversamente proporcional al <span class="accent-amber">cuadrado de la distancia</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 4 · EJEMPLO RESUELTO — COULOMB ═════════════════════════ -->
+<section data-label="Ejemplo - Coulomb" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Ejemplo Resuelto</div>
+  <h2 class="slide-title" style="font-size:52px;margin-bottom:36px">Ley de Coulomb paso a paso</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:flex-start">
+    <div>
+      <!-- Problem -->
+      <div style="background:rgba(56,189,248,.07);border:2px solid rgba(56,189,248,.22);
+        border-radius:16px;padding:28px 36px;margin-bottom:32px">
+        <div style="font-size:20px;font-weight:700;color:#38bdf8;letter-spacing:.1em;
+          text-transform:uppercase;margin-bottom:12px">Enunciado</div>
+        <p style="font-size:30px;color:#e2e8f0;line-height:1.6">
+          Dos cargas \( q_1 = 4\,\mu\text{C} \) y \( q_2 = 6\,\mu\text{C} \) están separadas por \( r = 0{,}3\,\text{m} \).
+          <span class="accent-amber">¿Cuál es la fuerza entre ellas?</span>
+        </p>
+      </div>
+
+      <!-- Steps -->
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="step">
+          <div class="step-label">Paso 1 — Datos</div>
+          <p style="font-size:26px;color:#e2e8f0">\( q_1 = 4\times10^{-6}\,\text{C} \quad q_2 = 6\times10^{-6}\,\text{C} \quad r = 0{,}3\,\text{m} \)</p>
+        </div>
+        <div class="step" style="border-left-color:#4ade80">
+          <div class="step-label" style="color:#4ade80">Paso 2 — Aplicar fórmula</div>
+          <p style="font-size:26px;color:#e2e8f0">\( F = k \cdot \dfrac{q_1 q_2}{r^2} = 9\times10^9 \cdot \dfrac{4\times10^{-6}\cdot 6\times10^{-6}}{(0{,}3)^2} \)</p>
+        </div>
+        <div class="step" style="border-left-color:#fbbf24">
+          <div class="step-label" style="color:#fbbf24">Paso 3 — Calcular</div>
+          <p style="font-size:28px;color:#e2e8f0;font-weight:500">\( F = 9\times10^9 \cdot \dfrac{24\times10^{-12}}{0{,}09} = \mathbf{2{,}4\,\text{N}} \)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual + answer -->
+    <div style="display:flex;flex-direction:column;gap:28px;align-items:center">
+      <svg width="400" height="220" viewBox="0 0 400 220">
+        <circle cx="80" cy="110" r="52" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+        <text x="80" y="102" text-anchor="middle" font-size="20" fill="#bfdbfe" font-family="Poppins,sans-serif">4 μC</text>
+        <text x="80" y="126" text-anchor="middle" font-size="30" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        <circle cx="320" cy="110" r="52" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+        <text x="320" y="102" text-anchor="middle" font-size="20" fill="#bfdbfe" font-family="Poppins,sans-serif">6 μC</text>
+        <text x="320" y="126" text-anchor="middle" font-size="30" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        <!-- Repulsion arrows -->
+        <line x1="22" y1="110" x2="4" y2="110" stroke="#f87171" stroke-width="4"/>
+        <polygon points="4,110 18,103 18,117" fill="#f87171"/>
+        <line x1="378" y1="110" x2="396" y2="110" stroke="#f87171" stroke-width="4"/>
+        <polygon points="396,110 382,103 382,117" fill="#f87171"/>
+        <line x1="140" y1="110" x2="260" y2="110" stroke="#f87171" stroke-width="2.5" stroke-dasharray="7,5"/>
+        <line x1="80" y1="190" x2="320" y2="190" stroke="#fbbf24" stroke-width="2.2"/>
+        <line x1="80" y1="182" x2="80" y2="198" stroke="#fbbf24" stroke-width="2.2"/>
+        <line x1="320" y1="182" x2="320" y2="198" stroke="#fbbf24" stroke-width="2.2"/>
+        <text x="200" y="214" text-anchor="middle" font-size="24" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">r = 0,3 m</text>
+      </svg>
+
+      <div class="answer" style="border-color:rgba(248,113,113,.35);
+        background:linear-gradient(135deg,rgba(248,113,113,.1),rgba(251,191,36,.07))">
+        <div style="font-size:20px;color:#f87171;font-weight:600;text-transform:uppercase;
+          letter-spacing:.1em;margin-bottom:10px">Resultado</div>
+        <div style="font-size:60px;font-weight:800;color:#f1f5f9">2,4 N</div>
+        <div style="font-size:26px;color:#94a3b8;margin-top:6px">
+          Fuerza de <span class="accent-pink">repulsión</span> (mismos signos)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 5 · ANALOGÍA CON LA GRAVEDAD ══════════════════════════ -->
+<section data-label="Analogía con la Gravedad" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Perspectiva</div>
+  <h2 class="slide-title" style="margin-bottom:44px">Coulomb y Newton: leyes análogas</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px">
+    <!-- Gravity -->
+    <div style="background:rgba(251,191,36,.07);border:2px solid rgba(251,191,36,.28);
+      border-radius:20px;padding:44px 48px">
+      <div style="font-size:24px;font-weight:700;color:#fbbf24;text-transform:uppercase;
+        letter-spacing:.1em;margin-bottom:24px">Gravitación Universal</div>
+      <div style="font-size:44px;text-align:center;margin-bottom:28px;color:#fde68a">
+        \[ F_g = G \cdot \frac{m_1 m_2}{r^2} \]
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <p style="font-size:26px;color:#e2e8f0">\(G = 6{,}67 \times 10^{-11}\) N·m²/kg²</p>
+        <p style="font-size:26px;color:#e2e8f0">\(m_1, m_2\): masas en kg</p>
+        <p style="font-size:26px;color:#fbbf24;font-weight:600">Siempre atractiva</p>
+      </div>
+    </div>
+
+    <!-- Coulomb -->
+    <div style="background:rgba(56,189,248,.07);border:2px solid rgba(56,189,248,.28);
+      border-radius:20px;padding:44px 48px">
+      <div style="font-size:24px;font-weight:700;color:#38bdf8;text-transform:uppercase;
+        letter-spacing:.1em;margin-bottom:24px">Ley de Coulomb</div>
+      <div style="font-size:44px;text-align:center;margin-bottom:28px;color:#7dd3fc">
+        \[ F_e = k \cdot \frac{q_1 q_2}{r^2} \]
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <p style="font-size:26px;color:#e2e8f0">\(k = 9 \times 10^{9}\) N·m²/C²</p>
+        <p style="font-size:26px;color:#e2e8f0">\(q_1, q_2\): cargas en C</p>
+        <p style="font-size:26px;color:#38bdf8;font-weight:600">Atractiva o repulsiva</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom facts -->
+  <div style="display:flex;gap:28px;margin-top:40px">
+    <div style="flex:1;background:rgba(255,255,255,.04);border-radius:12px;
+      padding:22px 28px;display:flex;gap:18px;align-items:center">
+      <div style="width:10px;height:10px;border-radius:50%;background:#38bdf8;flex-shrink:0"></div>
+      <p style="font-size:26px;color:#e2e8f0">Ambas siguen la <span class="accent-blue">ley del inverso del cuadrado</span> de la distancia</p>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,.04);border-radius:12px;
+      padding:22px 28px;display:flex;gap:18px;align-items:center">
+      <div style="width:10px;height:10px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>
+      <p style="font-size:26px;color:#e2e8f0">La fuerza eléctrica es <span class="accent-green">~10³⁶ veces más intensa</span> que la gravitacional entre protones</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 6 · SECCIÓN: CAMPO ELÉCTRICO ══════════════════════════ -->
+<section data-label="Sección Campo Eléctrico" style="
+  background:#071626; justify-content:center; align-items:center;
+  text-align:center; padding:80px 160px; position:relative; overflow:hidden;">
+
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"
+    viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#38bdf8" fill="none" opacity=".1">
+      <ellipse cx="960" cy="540" rx="130" ry="90"/>
+      <ellipse cx="960" cy="540" rx="280" ry="190"/>
+      <ellipse cx="960" cy="540" rx="460" ry="320"/>
+      <ellipse cx="960" cy="540" rx="660" ry="460"/>
+      <ellipse cx="960" cy="540" rx="880" ry="610"/>
+    </g>
+  </svg>
+
+  <div style="position:relative;z-index:1">
+    <div style="font-size:24px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:#4ade80;margin-bottom:20px">Capítulo 2</div>
+    <h2 style="font-size:116px;font-weight:800;line-height:.95;color:#f1f5f9;margin-bottom:28px">
+      Campo<br><span style="color:#38bdf8">Eléctrico</span>
+    </h2>
+    <p style="font-size:38px;font-weight:300;color:#94a3b8;line-height:1.5">
+      Entendiendo el espacio que rodea a una carga
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 7 · CAMPO ELÉCTRICO — DEFINICIÓN ══════════════════════ -->
+<section data-label="Campo Eléctrico - Definición" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Campo Eléctrico</div>
+  <h2 class="slide-title" style="margin-bottom:28px">El campo eléctrico \(\vec{E}\)</h2>
+  <div class="rule" style="margin-bottom:28px"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+    <div>
+      <div style="background:rgba(74,222,128,.07);border-left:4px solid #4ade80;
+        border-radius:0 12px 12px 0;padding:18px 28px;margin-bottom:20px">
+        <p style="font-size:28px;color:#e2e8f0;line-height:1.5;font-style:italic">
+          "Fuerza por unidad de carga que actúa en cada punto del espacio alrededor de una carga fuente."
+        </p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="fbox" style="text-align:left;padding:18px 30px">
+          <div style="font-size:24px;color:#94a3b8;margin-bottom:6px;font-weight:500">Definición operacional:</div>
+          <div style="font-size:44px;color:#38bdf8">\[ \vec{E} = \frac{\vec{F}}{q_0} \]</div>
+        </div>
+        <div class="fbox fbox-green" style="text-align:left;padding:18px 30px">
+          <div style="font-size:24px;color:#94a3b8;margin-bottom:6px;font-weight:500">Campo de carga puntual:</div>
+          <div style="font-size:44px;color:#4ade80">\[ E = k \cdot \frac{q}{r^2} \]</div>
+        </div>
+      </div>
+      <p style="font-size:24px;color:#94a3b8;margin-top:14px">Unidades: N/C &nbsp;=&nbsp; V/m</p>
+    </div>
+
+    <!-- Test charge diagram -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
+      <svg width="460" height="340" viewBox="0 0 460 340">
+        <!-- Source charge -->
+        <circle cx="120" cy="170" r="64" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+        <text x="120" y="162" text-anchor="middle" font-size="20" fill="#bfdbfe" font-family="Poppins,sans-serif">carga fuente</text>
+        <text x="120" y="184" text-anchor="middle" font-size="20" fill="#bfdbfe" font-family="Poppins,sans-serif">q</text>
+        <text x="120" y="152" text-anchor="middle" font-size="36" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        <!-- Test charge -->
+        <circle cx="340" cy="170" r="38" fill="#0f2a1e" stroke="#4ade80" stroke-width="2.5" stroke-dasharray="8,4"/>
+        <text x="340" y="176" text-anchor="middle" font-size="22" fill="#4ade80" font-family="Poppins,sans-serif">q<tspan baseline-shift="sub" font-size="15">0</tspan></text>
+        <!-- E vector -->
+        <line x1="386" y1="170" x2="430" y2="170" stroke="#38bdf8" stroke-width="4.5"/>
+        <polygon points="430,170 416,162 416,178" fill="#38bdf8"/>
+        <text x="436" y="162" font-size="28" fill="#38bdf8" font-weight="700" font-family="Poppins,sans-serif">E</text>
+        <!-- F vector below -->
+        <line x1="386" y1="198" x2="430" y2="198" stroke="#4ade80" stroke-width="3" stroke-dasharray="7,4"/>
+        <polygon points="430,198 416,191 416,205" fill="#4ade80"/>
+        <text x="430" y="222" font-size="24" fill="#4ade80" font-family="Poppins,sans-serif">F = E q<tspan baseline-shift="sub" font-size="15">0</tspan></text>
+        <!-- Distance r -->
+        <line x1="184" y1="288" x2="302" y2="288" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="184" y1="280" x2="184" y2="296" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="302" y1="280" x2="302" y2="296" stroke="#fbbf24" stroke-width="2"/>
+        <text x="243" y="316" text-anchor="middle" font-size="24" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">r</text>
+        <!-- Label test charge -->
+        <text x="340" y="228" text-anchor="middle" font-size="20" fill="#64748b" font-family="Poppins,sans-serif">carga de prueba</text>
+      </svg>
+      <p style="font-size:26px;color:#94a3b8;text-align:center;max-width:400px;line-height:1.5">
+        \( \vec{E} \) apunta en la dirección de la fuerza sobre una <span class="accent-green">carga positiva de prueba</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 8 · LÍNEAS DE CAMPO ═══════════════════════════════════ -->
+<section data-label="Líneas de Campo" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Visualización</div>
+  <h2 class="slide-title" style="margin-bottom:36px">Líneas de campo eléctrico</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1.7fr;gap:72px;align-items:center">
+    <!-- Rules -->
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:18px;align-items:flex-start">
+        <div style="min-width:38px;height:38px;border-radius:50%;background:#38bdf8;
+          display:flex;align-items:center;justify-content:center;
+          font-size:20px;font-weight:800;color:#0f172a;flex-shrink:0;margin-top:4px">1</div>
+        <p style="font-size:28px;color:#e2e8f0;line-height:1.5">Parten de cargas <span class="accent-blue">positivas</span> y terminan en cargas <span class="accent-pink">negativas</span></p>
+      </div>
+      <div style="display:flex;gap:18px;align-items:flex-start">
+        <div style="min-width:38px;height:38px;border-radius:50%;background:#4ade80;
+          display:flex;align-items:center;justify-content:center;
+          font-size:20px;font-weight:800;color:#0f172a;flex-shrink:0;margin-top:4px">2</div>
+        <p style="font-size:28px;color:#e2e8f0;line-height:1.5">Mayor <span class="accent-green">densidad de líneas</span> = campo más intenso</p>
+      </div>
+      <div style="display:flex;gap:18px;align-items:flex-start">
+        <div style="min-width:38px;height:38px;border-radius:50%;background:#fbbf24;
+          display:flex;align-items:center;justify-content:center;
+          font-size:20px;font-weight:800;color:#0f172a;flex-shrink:0;margin-top:4px">3</div>
+        <p style="font-size:28px;color:#e2e8f0;line-height:1.5">Nunca se <span class="accent-amber">cruzan</span> entre sí</p>
+      </div>
+      <div style="display:flex;gap:18px;align-items:flex-start">
+        <div style="min-width:38px;height:38px;border-radius:50%;background:#f472b6;
+          display:flex;align-items:center;justify-content:center;
+          font-size:20px;font-weight:800;color:#0f172a;flex-shrink:0;margin-top:4px">4</div>
+        <p style="font-size:28px;color:#e2e8f0;line-height:1.5">Son <span class="accent-pink">tangentes</span> al vector \(\vec{E}\) en cada punto</p>
+      </div>
+    </div>
+
+    <!-- Field-line diagrams: 3 cases -->
+    <div style="display:flex;gap:44px;justify-content:center;align-items:center">
+      <!-- Positive -->
+      <div style="text-align:center">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <g stroke="#38bdf8" fill="#38bdf8" stroke-width="2">
+            <line x1="100" y1="100" x2="188" y2="100"/>
+            <polygon points="188,100 175,93 175,107"/>
+            <line x1="100" y1="100" x2="12" y2="100"/>
+            <polygon points="12,100 25,93 25,107"/>
+            <line x1="100" y1="100" x2="100" y2="12"/>
+            <polygon points="100,12 93,25 107,25"/>
+            <line x1="100" y1="100" x2="100" y2="188"/>
+            <polygon points="100,188 93,175 107,175"/>
+            <line x1="100" y1="100" x2="163" y2="163"/>
+            <polygon points="163,163 149,158 158,149"/>
+            <line x1="100" y1="100" x2="37" y2="37"/>
+            <polygon points="37,37 51,42 42,51"/>
+            <line x1="100" y1="100" x2="163" y2="37"/>
+            <polygon points="163,37 158,51 149,42"/>
+            <line x1="100" y1="100" x2="37" y2="163"/>
+            <polygon points="37,163 42,149 51,158"/>
+          </g>
+          <circle cx="100" cy="100" r="26" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2.5"/>
+          <text x="100" y="108" text-anchor="middle" font-size="24" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        </svg>
+        <p style="font-size:24px;color:#38bdf8;font-weight:600;margin-top:8px">Carga +</p>
+        <p style="font-size:20px;color:#64748b">Campo hacia afuera</p>
+      </div>
+
+      <!-- Negative -->
+      <div style="text-align:center">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <g stroke="#f472b6" fill="#f472b6" stroke-width="2">
+            <!-- arrows pointing INWARD — tip near center -->
+            <line x1="188" y1="100" x2="128" y2="100"/>
+            <polygon points="128,100 141,93 141,107"/>
+            <line x1="12" y1="100" x2="72" y2="100"/>
+            <polygon points="72,100 59,93 59,107"/>
+            <line x1="100" y1="12" x2="100" y2="72"/>
+            <polygon points="100,72 93,59 107,59"/>
+            <line x1="100" y1="188" x2="100" y2="128"/>
+            <polygon points="100,128 93,141 107,141"/>
+            <line x1="163" y1="163" x2="123" y2="123"/>
+            <polygon points="123,123 135,117 117,135"/>
+            <line x1="37" y1="37" x2="77" y2="77"/>
+            <polygon points="77,77 65,83 83,65"/>
+            <line x1="163" y1="37" x2="123" y2="77"/>
+            <polygon points="123,77 135,83 117,65"/>
+            <line x1="37" y1="163" x2="77" y2="123"/>
+            <polygon points="77,123 65,117 83,135"/>
+          </g>
+          <circle cx="100" cy="100" r="26" fill="#7f1d1d" stroke="#f87171" stroke-width="2.5"/>
+          <text x="100" y="112" text-anchor="middle" font-size="32" font-weight="bold" fill="white" font-family="Poppins,sans-serif">−</text>
+        </svg>
+        <p style="font-size:24px;color:#f472b6;font-weight:600;margin-top:8px">Carga −</p>
+        <p style="font-size:20px;color:#64748b">Campo hacia adentro</p>
+      </div>
+
+      <!-- Dipole -->
+      <div style="text-align:center">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <g stroke="#38bdf8" fill="none" stroke-width="1.8" opacity=".85">
+            <path d="M 56,100 Q 100,28 144,100"/>
+            <path d="M 56,100 Q 100,52 144,100"/>
+            <path d="M 56,100 Q 100,76 144,100"/>
+            <path d="M 56,100 Q 100,124 144,100"/>
+            <path d="M 56,100 Q 100,148 144,100"/>
+            <path d="M 56,100 Q 100,172 144,100"/>
+            <line x1="82" y1="100" x2="118" y2="100"/>
+          </g>
+          <!-- Arrow on center line -->
+          <polygon points="118,100 105,93 105,107" fill="#38bdf8"/>
+          <!-- Charges -->
+          <circle cx="56" cy="100" r="20" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2"/>
+          <text x="56" y="108" text-anchor="middle" font-size="20" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+          <circle cx="144" cy="100" r="20" fill="#7f1d1d" stroke="#f87171" stroke-width="2"/>
+          <text x="144" y="112" text-anchor="middle" font-size="26" font-weight="bold" fill="white" font-family="Poppins,sans-serif">−</text>
+        </svg>
+        <p style="font-size:24px;color:#94a3b8;font-weight:600;margin-top:8px">Dipolo</p>
+        <p style="font-size:20px;color:#64748b">De + hacia −</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 9 · EJEMPLO CAMPO ELÉCTRICO ════════════════════════════ -->
+<section data-label="Ejemplo - Campo Eléctrico" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Ejemplo Resuelto</div>
+  <h2 class="slide-title" style="font-size:52px;margin-bottom:36px">Campo eléctrico paso a paso</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:flex-start">
+    <div>
+      <div style="background:rgba(74,222,128,.07);border:2px solid rgba(74,222,128,.22);
+        border-radius:16px;padding:28px 36px;margin-bottom:32px">
+        <div style="font-size:20px;font-weight:700;color:#4ade80;letter-spacing:.1em;
+          text-transform:uppercase;margin-bottom:12px">Enunciado</div>
+        <p style="font-size:30px;color:#e2e8f0;line-height:1.6">
+          Una carga de \( q = 5\,\mu\text{C} \). ¿Cuál es el campo eléctrico a \( r = 0{,}2\,\text{m} \) de la carga?
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="step" style="border-left-color:#4ade80">
+          <div class="step-label" style="color:#4ade80">Datos</div>
+          <p style="font-size:26px;color:#e2e8f0">\( q = 5\times10^{-6}\,\text{C} \quad r = 0{,}2\,\text{m} \quad k = 9\times10^9 \)</p>
+        </div>
+        <div class="step">
+          <div class="step-label">Fórmula</div>
+          <p style="font-size:26px;color:#e2e8f0">\( E = k \cdot \dfrac{q}{r^2} = 9\times10^9 \cdot \dfrac{5\times10^{-6}}{(0{,}2)^2} \)</p>
+        </div>
+        <div class="step" style="border-left-color:#fbbf24">
+          <div class="step-label" style="color:#fbbf24">Resultado</div>
+          <p style="font-size:28px;color:#e2e8f0;font-weight:500">\( E = 9\times10^9 \cdot \dfrac{5\times10^{-6}}{0{,}04} = \mathbf{1{,}125 \times 10^6\,\text{N/C}} \)</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:28px;align-items:center">
+      <svg width="360" height="260" viewBox="0 0 360 260">
+        <circle cx="82" cy="130" r="52" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+        <text x="82" y="122" text-anchor="middle" font-size="20" fill="#bfdbfe" font-family="Poppins,sans-serif">5 μC</text>
+        <text x="82" y="146" text-anchor="middle" font-size="32" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        <circle cx="278" cy="130" r="10" fill="#fbbf24"/>
+        <text x="278" y="108" text-anchor="middle" font-size="26" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">P</text>
+        <line x1="296" y1="130" x2="340" y2="130" stroke="#4ade80" stroke-width="4.5"/>
+        <polygon points="340,130 326,123 326,137" fill="#4ade80"/>
+        <text x="348" y="122" font-size="26" fill="#4ade80" font-weight="700" font-family="Poppins,sans-serif">E</text>
+        <line x1="134" y1="216" x2="278" y2="216" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="134" y1="208" x2="134" y2="224" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="278" y1="208" x2="278" y2="224" stroke="#fbbf24" stroke-width="2"/>
+        <text x="206" y="242" text-anchor="middle" font-size="24" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">r = 0,2 m</text>
+      </svg>
+      <div class="answer answer-green">
+        <div style="font-size:20px;color:#4ade80;font-weight:600;text-transform:uppercase;
+          letter-spacing:.1em;margin-bottom:10px">Campo en P</div>
+        <div style="font-size:44px;font-weight:800;color:#f1f5f9">1,125 × 10⁶ N/C</div>
+        <div style="font-size:24px;color:#94a3b8;margin-top:6px">Apunta <span class="accent-green">alejándose de q</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 10 · SECCIÓN: POTENCIAL ELÉCTRICO ══════════════════════ -->
+<section data-label="Sección Potencial Eléctrico" style="
+  background:#071a0d; justify-content:center; align-items:center;
+  text-align:center; padding:80px 160px; position:relative; overflow:hidden;">
+
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"
+    viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#4ade80" fill="none" opacity=".09">
+      <circle cx="960" cy="540" r="180"/><circle cx="960" cy="540" r="340"/>
+      <circle cx="960" cy="540" r="520"/><circle cx="960" cy="540" r="720"/>
+      <circle cx="960" cy="540" r="940"/>
+    </g>
+  </svg>
+
+  <div style="position:relative;z-index:1">
+    <div style="font-size:24px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:#38bdf8;margin-bottom:20px">Capítulo 3</div>
+    <h2 style="font-size:116px;font-weight:800;line-height:.95;color:#f1f5f9;margin-bottom:28px">
+      Potencial<br><span style="color:#4ade80">Eléctrico</span>
+    </h2>
+    <p style="font-size:38px;font-weight:300;color:#94a3b8;line-height:1.5">
+      Energía y trabajo en el campo eléctrico
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 11 · POTENCIAL ELÉCTRICO ══════════════════════════════ -->
+<section data-label="Potencial Eléctrico" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Potencial Eléctrico</div>
+  <h2 class="slide-title" style="margin-bottom:28px">El potencial eléctrico \(V\)</h2>
+  <div class="rule rule-green" style="margin-bottom:28px"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+    <div>
+      <div style="background:rgba(74,222,128,.07);border-left:4px solid #4ade80;
+        border-radius:0 12px 12px 0;padding:18px 26px;margin-bottom:18px">
+        <p style="font-size:28px;color:#e2e8f0;line-height:1.5;font-style:italic">
+          "Energía potencial eléctrica por unidad de carga en un punto del espacio."
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="fbox fbox-green" style="padding:16px 28px">
+          <div style="font-size:24px;color:#94a3b8;margin-bottom:6px;font-weight:500">Definición:</div>
+          <div style="font-size:44px;color:#4ade80">\[ V = \frac{U_e}{q_0} = k \cdot \frac{q}{r} \]</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:16px 20px">
+            <div style="font-size:26px;color:#4ade80;font-weight:600;margin-bottom:2px">\(V\)</div>
+            <div style="font-size:24px;color:#e2e8f0">Potencial eléctrico</div>
+            <div style="font-size:24px;color:#94a3b8">Voltios (V)</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:16px 20px">
+            <div style="font-size:26px;color:#38bdf8;font-weight:600;margin-bottom:2px">\(U_e\)</div>
+            <div style="font-size:24px;color:#e2e8f0">Energía potencial</div>
+            <div style="font-size:24px;color:#94a3b8">Joules (J)</div>
+          </div>
+        </div>
+        <div style="background:rgba(56,189,248,.07);border-radius:12px;padding:16px 24px">
+          <p style="font-size:26px;color:#e2e8f0">Diferencia de potencial (tensión):</p>
+          <div style="font-size:36px;color:#38bdf8;margin-top:4px">\[ \Delta V = V_B - V_A = -\frac{W_{A\to B}}{q_0} \]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equipotential diagram -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+      <svg width="420" height="360" viewBox="0 0 420 360">
+        <!-- Equipotential circles (dashed green) -->
+        <circle cx="210" cy="180" r="38" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-dasharray="8,5"/>
+        <circle cx="210" cy="180" r="80" fill="none" stroke="#4ade80" stroke-width="2" stroke-dasharray="8,5" opacity=".8"/>
+        <circle cx="210" cy="180" r="130" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-dasharray="8,5" opacity=".6"/>
+        <circle cx="210" cy="180" r="180" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="8,5" opacity=".4"/>
+        <!-- V labels -->
+        <text x="252" y="178" font-size="22" fill="#4ade80" font-family="Poppins,sans-serif" opacity=".95">V₁</text>
+        <text x="294" y="178" font-size="22" fill="#4ade80" font-family="Poppins,sans-serif" opacity=".8">V₂</text>
+        <text x="344" y="178" font-size="22" fill="#4ade80" font-family="Poppins,sans-serif" opacity=".6">V₃</text>
+        <!-- Radial E-field lines -->
+        <g stroke="#38bdf8" stroke-width="1.5" fill="#38bdf8" opacity=".45">
+          <line x1="210" y1="180" x2="392" y2="180"/>
+          <polygon points="392,180 378,173 378,187"/>
+          <line x1="210" y1="180" x2="338" y2="52"/>
+          <line x1="210" y1="180" x2="338" y2="308"/>
+          <line x1="210" y1="180" x2="28" y2="180"/>
+          <line x1="210" y1="180" x2="82" y2="52"/>
+          <line x1="210" y1="180" x2="82" y2="308"/>
+        </g>
+        <!-- Central charge -->
+        <circle cx="210" cy="180" r="28" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2.5"/>
+        <text x="210" y="188" text-anchor="middle" font-size="26" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+      </svg>
+      <p style="font-size:24px;color:#94a3b8;text-align:center;max-width:380px;line-height:1.5">
+        Las superficies <span class="accent-green">equipotenciales</span> son siempre perpendiculares al campo <span class="accent-blue">\( \vec{E} \)</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 12 · EJEMPLO POTENCIAL ═══════════════════════════════ -->
+<section data-label="Ejemplo - Potencial" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Ejemplo Resuelto</div>
+  <h2 class="slide-title" style="font-size:52px;margin-bottom:36px">Potencial eléctrico paso a paso</h2>
+  <div class="rule rule-green"></div>
+
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:flex-start">
+    <div>
+      <div style="background:rgba(74,222,128,.07);border:2px solid rgba(74,222,128,.22);
+        border-radius:16px;padding:28px 36px;margin-bottom:32px">
+        <div style="font-size:20px;font-weight:700;color:#4ade80;letter-spacing:.1em;
+          text-transform:uppercase;margin-bottom:12px">Enunciado</div>
+        <p style="font-size:30px;color:#e2e8f0;line-height:1.6">
+          Calcula el potencial eléctrico a \( r = 0{,}5\,\text{m} \) de una carga de \( q = 2\,\mu\text{C} \).
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="step" style="border-left-color:#4ade80">
+          <div class="step-label" style="color:#4ade80">Datos</div>
+          <p style="font-size:26px;color:#e2e8f0">\( q = 2\times10^{-6}\,\text{C} \quad r = 0{,}5\,\text{m} \quad k = 9\times10^9 \)</p>
+        </div>
+        <div class="step">
+          <div class="step-label">Fórmula</div>
+          <p style="font-size:26px;color:#e2e8f0">\( V = k \cdot \dfrac{q}{r} = 9\times10^9 \cdot \dfrac{2\times10^{-6}}{0{,}5} \)</p>
+        </div>
+        <div class="step" style="border-left-color:#fbbf24">
+          <div class="step-label" style="color:#fbbf24">Resultado</div>
+          <p style="font-size:28px;color:#e2e8f0;font-weight:500">\( V = 9\times10^9 \cdot 4\times10^{-6} = \mathbf{36\,000\,\text{V} = 36\,\text{kV}} \)</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:28px;align-items:center">
+      <svg width="360" height="260" viewBox="0 0 360 260">
+        <circle cx="78" cy="130" r="48" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+        <text x="78" y="122" text-anchor="middle" font-size="20" fill="#bfdbfe" font-family="Poppins,sans-serif">2 μC</text>
+        <text x="78" y="146" text-anchor="middle" font-size="30" font-weight="bold" fill="white" font-family="Poppins,sans-serif">+</text>
+        <!-- Equipotential arc at P -->
+        <path d="M 264,68 Q 322,130 264,192" stroke="#4ade80" stroke-width="2" fill="none" stroke-dasharray="8,5"/>
+        <circle cx="264" cy="130" r="10" fill="#fbbf24"/>
+        <text x="264" y="106" text-anchor="middle" font-size="26" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">P</text>
+        <text x="294" y="130" font-size="22" fill="#4ade80" font-family="Poppins,sans-serif">V = ?</text>
+        <line x1="126" y1="218" x2="264" y2="218" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="126" y1="210" x2="126" y2="226" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="264" y1="210" x2="264" y2="226" stroke="#fbbf24" stroke-width="2"/>
+        <text x="195" y="244" text-anchor="middle" font-size="24" fill="#fbbf24" font-weight="600" font-family="Poppins,sans-serif">r = 0,5 m</text>
+      </svg>
+      <div class="answer answer-green">
+        <div style="font-size:20px;color:#4ade80;font-weight:600;text-transform:uppercase;
+          letter-spacing:.1em;margin-bottom:8px">Potencial en P</div>
+        <div style="font-size:56px;font-weight:800;color:#f1f5f9">36 000 V</div>
+        <div style="font-size:28px;color:#4ade80;font-weight:600">= 36 kV</div>
+        <div style="font-size:24px;color:#94a3b8;margin-top:6px">Energía disponible por unidad de carga</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 13 · TABLA COMPARATIVA ════════════════════════════════ -->
+<section data-label="Tabla Comparativa" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Resumen Comparativo</div>
+  <h2 class="slide-title" style="margin-bottom:44px">Fuerza, Campo y Potencial</h2>
+  <div class="rule"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:22%">Magnitud</th>
+        <th style="width:14%">Símbolo</th>
+        <th style="width:32%">Fórmula</th>
+        <th style="width:16%">Unidad</th>
+        <th style="width:16%">¿Vector?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:#f87171;font-size:28px">Fuerza eléctrica</td>
+        <td style="font-size:32px;color:#f87171">\(\vec{F}\)</td>
+        <td style="font-size:26px">\( k \cdot \dfrac{q_1 q_2}{r^2} \)</td>
+        <td style="font-size:26px">N</td>
+        <td style="font-size:24px;color:#4ade80;font-weight:600">✓ Sí</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:#38bdf8;font-size:28px">Campo eléctrico</td>
+        <td style="font-size:32px;color:#38bdf8">\(\vec{E}\)</td>
+        <td style="font-size:26px">\( k \cdot \dfrac{q}{r^2} \)</td>
+        <td style="font-size:26px">N/C</td>
+        <td style="font-size:24px;color:#4ade80;font-weight:600">✓ Sí</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:#4ade80;font-size:28px">Potencial eléctrico</td>
+        <td style="font-size:32px;color:#4ade80">\(V\)</td>
+        <td style="font-size:26px">\( k \cdot \dfrac{q}{r} \)</td>
+        <td style="font-size:26px">V</td>
+        <td style="font-size:24px;color:#f87171;font-weight:600">✗ No (escalar)</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:#fbbf24;font-size:28px">Energía potencial</td>
+        <td style="font-size:32px;color:#fbbf24">\(U_e\)</td>
+        <td style="font-size:26px">\( k \cdot \dfrac{q_1 q_2}{r} \)</td>
+        <td style="font-size:26px">J</td>
+        <td style="font-size:24px;color:#f87171;font-weight:600">✗ No (escalar)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:44px;background:rgba(56,189,248,.07);border-radius:14px;
+    padding:24px 36px;display:flex;gap:20px;align-items:center">
+    <div style="width:10px;height:10px;border-radius:50%;background:#38bdf8;flex-shrink:0"></div>
+    <p style="font-size:28px;color:#e2e8f0">
+      Relación clave: \(\vec{E} = -\dfrac{dV}{dr}\) — el campo apunta de mayor a <span class="accent-blue">menor potencial</span>
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 14 · APLICACIONES REALES ══════════════════════════════ -->
+<section data-label="Aplicaciones Reales" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Aplicaciones</div>
+  <h2 class="slide-title" style="margin-bottom:44px">La electrostática en el mundo real</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;margin-top:4px">
+
+    <!-- Rayos -->
+    <div style="background:rgba(251,191,36,.07);border:2px solid rgba(251,191,36,.24);
+      border-radius:20px;padding:40px 36px;display:flex;flex-direction:column;gap:18px">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <polygon points="44,4 24,40 40,40 28,68 56,32 40,32" fill="#fbbf24"/>
+      </svg>
+      <h3 style="font-size:38px;font-weight:700;color:#fbbf24">Rayos</h3>
+      <p style="font-size:26px;color:#e2e8f0;line-height:1.55">
+        Las nubes acumulan <span class="accent-amber">cargas separadas</span> por turbulencia. Cuando la diferencia de potencial supera ~3 MV/m, el aire se ioniza y ocurre la descarga.
+      </p>
+      <div style="background:rgba(251,191,36,.1);border-radius:10px;padding:14px 20px">
+        <p style="font-size:24px;color:#94a3b8">Campo: ~10⁶ N/C · Corriente: ~30 000 A</p>
+      </div>
+    </div>
+
+    <!-- Electrónica -->
+    <div style="background:rgba(56,189,248,.07);border:2px solid rgba(56,189,248,.24);
+      border-radius:20px;padding:40px 36px;display:flex;flex-direction:column;gap:18px">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <rect x="16" y="16" width="40" height="40" rx="4" fill="none" stroke="#38bdf8" stroke-width="3"/>
+        <rect x="24" y="24" width="24" height="24" rx="2" fill="#38bdf8" opacity=".25"/>
+        <line x1="16" y1="28" x2="4" y2="28" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="16" y1="44" x2="4" y2="44" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="56" y1="28" x2="68" y2="28" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="56" y1="44" x2="68" y2="44" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="28" y1="16" x2="28" y2="4" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="44" y1="16" x2="44" y2="4" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="28" y1="56" x2="28" y2="68" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="44" y1="56" x2="44" y2="68" stroke="#38bdf8" stroke-width="3"/>
+      </svg>
+      <h3 style="font-size:38px;font-weight:700;color:#38bdf8">Electrónica</h3>
+      <p style="font-size:26px;color:#e2e8f0;line-height:1.55">
+        Los <span class="accent-blue">transistores y capacitores</span> controlan cargas eléctricas usando campos. Un chip moderno tiene billones de estos dispositivos.
+      </p>
+      <div style="background:rgba(56,189,248,.1);border-radius:10px;padding:14px 20px">
+        <p style="font-size:24px;color:#94a3b8">~10¹⁰ transistores por cm²</p>
+      </div>
+    </div>
+
+    <!-- Capacitores -->
+    <div style="background:rgba(74,222,128,.07);border:2px solid rgba(74,222,128,.24);
+      border-radius:20px;padding:40px 36px;display:flex;flex-direction:column;gap:18px">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <line x1="4" y1="36" x2="28" y2="36" stroke="#4ade80" stroke-width="3"/>
+        <line x1="28" y1="12" x2="28" y2="60" stroke="#4ade80" stroke-width="5" stroke-linecap="round"/>
+        <line x1="44" y1="12" x2="44" y2="60" stroke="#4ade80" stroke-width="5" stroke-linecap="round"/>
+        <line x1="44" y1="36" x2="68" y2="36" stroke="#4ade80" stroke-width="3"/>
+        <text x="22" y="12" font-size="16" fill="#fbbf24" font-family="Poppins,sans-serif" font-weight="700">+</text>
+        <text x="46" y="12" font-size="20" fill="#f472b6" font-family="Poppins,sans-serif" font-weight="700">−</text>
+      </svg>
+      <h3 style="font-size:38px;font-weight:700;color:#4ade80">Capacitores</h3>
+      <p style="font-size:26px;color:#e2e8f0;line-height:1.55">
+        Almacenan <span class="accent-green">energía eléctrica</span> en el campo entre dos placas. Aplicaciones: memorias flash, cámaras, vehículos eléctricos.
+      </p>
+      <div style="background:rgba(74,222,128,.1);border-radius:10px;padding:14px 20px">
+        <p style="font-size:24px;color:#94a3b8">\( C = \varepsilon_0 \cdot A/d \)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 15 · PREGUNTAS CONCEPTUALES ════════════════════════════ -->
+<section data-label="Preguntas Conceptuales" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Actividades</div>
+  <h2 class="slide-title" style="margin-bottom:44px">Preguntas conceptuales</h2>
+  <div class="rule"></div>
+
+  <div style="display:flex;flex-direction:column;gap:32px;margin-top:4px">
+    <div style="background:rgba(56,189,248,.06);border:2px solid rgba(56,189,248,.2);
+      border-radius:16px;padding:32px 40px;display:flex;gap:24px;align-items:flex-start">
+      <div style="min-width:48px;height:48px;border-radius:50%;background:#38bdf8;
+        display:flex;align-items:center;justify-content:center;
+        font-size:26px;font-weight:800;color:#0f172a;flex-shrink:0">1</div>
+      <p style="font-size:30px;color:#e2e8f0;line-height:1.55">
+        Si duplicamos la distancia entre dos cargas, ¿cómo cambia la fuerza de Coulomb? Justifica usando la fórmula.
+      </p>
+    </div>
+    <div style="background:rgba(74,222,128,.06);border:2px solid rgba(74,222,128,.2);
+      border-radius:16px;padding:32px 40px;display:flex;gap:24px;align-items:flex-start">
+      <div style="min-width:48px;height:48px;border-radius:50%;background:#4ade80;
+        display:flex;align-items:center;justify-content:center;
+        font-size:26px;font-weight:800;color:#0f172a;flex-shrink:0">2</div>
+      <p style="font-size:30px;color:#e2e8f0;line-height:1.55">
+        ¿Puede el campo eléctrico ser distinto de cero donde el potencial es cero? ¿Y al revés? Da un ejemplo de cada caso.
+      </p>
+    </div>
+    <div style="background:rgba(251,191,36,.06);border:2px solid rgba(251,191,36,.2);
+      border-radius:16px;padding:32px 40px;display:flex;gap:24px;align-items:flex-start">
+      <div style="min-width:48px;height:48px;border-radius:50%;background:#fbbf24;
+        display:flex;align-items:center;justify-content:center;
+        font-size:26px;font-weight:800;color:#0f172a;flex-shrink:0">3</div>
+      <p style="font-size:30px;color:#e2e8f0;line-height:1.55">
+        ¿Por qué los rayos no caen en línea recta? ¿Qué rol juega el campo eléctrico y la ionización del aire?
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 16 · EJERCICIOS NUMÉRICOS ══════════════════════════════ -->
+<section data-label="Ejercicios Numéricos" style="
+  justify-content:center; padding:80px 160px;">
+
+  <div class="tag">Actividades</div>
+  <h2 class="slide-title" style="margin-bottom:44px">Ejercicios numéricos</h2>
+  <div class="rule"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:4px">
+    <!-- Exercise A -->
+    <div style="background:rgba(56,189,248,.06);border:2px solid rgba(56,189,248,.24);
+      border-radius:20px;padding:40px 44px">
+      <div style="display:flex;gap:18px;align-items:center;margin-bottom:24px">
+        <div style="min-width:48px;height:48px;border-radius:50%;background:#38bdf8;
+          display:flex;align-items:center;justify-content:center;
+          font-size:26px;font-weight:800;color:#0f172a">A</div>
+        <div style="font-size:24px;font-weight:700;color:#38bdf8;text-transform:uppercase;
+          letter-spacing:.08em">Ley de Coulomb</div>
+      </div>
+      <p style="font-size:28px;color:#e2e8f0;line-height:1.6;margin-bottom:24px">
+        Dos cargas \( q_1 = 3\,\mu\text{C} \) y \( q_2 = -8\,\mu\text{C} \) están separadas \( 0{,}4\,\text{m} \).
+      </p>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:14px">
+          <span style="color:#38bdf8;font-weight:600;font-size:26px;flex-shrink:0">a)</span>
+          <p style="font-size:26px;color:#e2e8f0">Calcula la fuerza entre ellas.</p>
+        </div>
+        <div style="display:flex;gap:14px">
+          <span style="color:#38bdf8;font-weight:600;font-size:26px;flex-shrink:0">b)</span>
+          <p style="font-size:26px;color:#e2e8f0">¿Es atractiva o repulsiva? ¿Por qué?</p>
+        </div>
+        <div style="display:flex;gap:14px">
+          <span style="color:#38bdf8;font-weight:600;font-size:26px;flex-shrink:0">c)</span>
+          <p style="font-size:26px;color:#e2e8f0">Si la distancia se reduce a la mitad, ¿qué pasa?</p>
+        </div>
+      </div>
+      <div style="margin-top:24px;background:rgba(56,189,248,.1);border-radius:10px;padding:14px 22px">
+        <p style="font-size:24px;color:#94a3b8">Resultado (a): <span class="accent-blue" style="font-weight:600">1,35 N (atractiva)</span></p>
+      </div>
+    </div>
+
+    <!-- Exercise B -->
+    <div style="background:rgba(74,222,128,.06);border:2px solid rgba(74,222,128,.24);
+      border-radius:20px;padding:40px 44px">
+      <div style="display:flex;gap:18px;align-items:center;margin-bottom:24px">
+        <div style="min-width:48px;height:48px;border-radius:50%;background:#4ade80;
+          display:flex;align-items:center;justify-content:center;
+          font-size:26px;font-weight:800;color:#0f172a">B</div>
+        <div style="font-size:24px;font-weight:700;color:#4ade80;text-transform:uppercase;
+          letter-spacing:.08em">Campo y Potencial</div>
+      </div>
+      <p style="font-size:28px;color:#e2e8f0;line-height:1.6;margin-bottom:24px">
+        Una carga de \( q = 10\,\mu\text{C} \) genera campo en su entorno.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:14px">
+          <span style="color:#4ade80;font-weight:600;font-size:26px;flex-shrink:0">a)</span>
+          <p style="font-size:26px;color:#e2e8f0">Halla \(E\) y \(V\) a \( r = 0{,}3\,\text{m} \).</p>
+        </div>
+        <div style="display:flex;gap:14px">
+          <span style="color:#4ade80;font-weight:600;font-size:26px;flex-shrink:0">b)</span>
+          <p style="font-size:26px;color:#e2e8f0">¿Cuánto trabajo realiza el campo al mover \( q_0 = 1\,\mu\text{C} \) de \( r_1 = 0{,}3\,\text{m} \) a \( r_2 = 0{,}6\,\text{m} \)?</p>
+        </div>
+      </div>
+      <div style="margin-top:24px;background:rgba(74,222,128,.1);border-radius:10px;padding:14px 22px">
+        <p style="font-size:24px;color:#94a3b8">Resultado (a): <span class="accent-green" style="font-weight:600">E ≈ 10⁶ N/C, V = 300 kV</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SLIDE 17 · RESUMEN VISUAL ════════════════════════════════════ -->
+<section data-label="Resumen" style="
+  background:#080e1c; justify-content:center; padding:80px 160px;
+  position:relative; overflow:hidden;">
+
+  <!-- Ambient glow -->
+  <div style="position:absolute;top:-200px;right:-100px;width:600px;height:600px;
+    background:radial-gradient(circle,rgba(56,189,248,.07) 0%,transparent 70%);pointer-events:none"></div>
+  <div style="position:absolute;bottom:-180px;left:-80px;width:580px;height:580px;
+    background:radial-gradient(circle,rgba(74,222,128,.05) 0%,transparent 70%);pointer-events:none"></div>
+
+  <div style="position:relative;z-index:1">
+    <div class="tag">Mapa Conceptual</div>
+    <h2 class="slide-title" style="margin-bottom:44px">Lo que aprendimos</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+      <!-- Coulomb -->
+      <div style="background:rgba(248,113,113,.07);border:2px solid rgba(248,113,113,.24);
+        border-radius:20px;padding:36px 32px">
+        <div style="font-size:56px;font-weight:800;color:#f87171;margin-bottom:8px">\( \vec{F} \)</div>
+        <h3 style="font-size:32px;font-weight:700;color:#f87171;margin-bottom:14px">Ley de Coulomb</h3>
+        <div style="font-size:28px;color:#e2e8f0;margin-bottom:16px">\( F = k \dfrac{q_1 q_2}{r^2} \)</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#f87171">→</span> Fuerza entre cargas</p>
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#f87171">→</span> Actúa a distancia</p>
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#f87171">→</span> Ley del inverso cuadrado</p>
+        </div>
+      </div>
+
+      <!-- Campo -->
+      <div style="background:rgba(56,189,248,.07);border:2px solid rgba(56,189,248,.24);
+        border-radius:20px;padding:36px 32px">
+        <div style="font-size:56px;font-weight:800;color:#38bdf8;margin-bottom:8px">\( \vec{E} \)</div>
+        <h3 style="font-size:32px;font-weight:700;color:#38bdf8;margin-bottom:14px">Campo Eléctrico</h3>
+        <div style="font-size:28px;color:#e2e8f0;margin-bottom:16px">\( E = k \dfrac{q}{r^2} \)</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#38bdf8">→</span> Fuerza por carga de prueba</p>
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#38bdf8">→</span> Vector (con dirección)</p>
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#38bdf8">→</span> Líneas de campo</p>
+        </div>
+      </div>
+
+      <!-- Potencial -->
+      <div style="background:rgba(74,222,128,.07);border:2px solid rgba(74,222,128,.24);
+        border-radius:20px;padding:36px 32px">
+        <div style="font-size:56px;font-weight:800;color:#4ade80;margin-bottom:8px">V</div>
+        <h3 style="font-size:32px;font-weight:700;color:#4ade80;margin-bottom:14px">Potencial Eléctrico</h3>
+        <div style="font-size:28px;color:#e2e8f0;margin-bottom:16px">\( V = k \dfrac{q}{r} \)</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#4ade80">→</span> Energía por carga</p>
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#4ade80">→</span> Escalar (sin dirección)</p>
+          <p style="font-size:24px;color:#94a3b8;display:flex;gap:10px"><span style="color:#4ade80">→</span> Superficies equipotenciales</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relations row -->
+    <div style="display:flex;gap:20px;justify-content:center;margin-top:36px">
+      <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:16px 32px;
+        display:flex;gap:12px;align-items:center">
+        <span style="font-size:28px;color:#f87171;font-weight:700">\( \vec{F} \)</span>
+        <span style="font-size:26px;color:#64748b">=</span>
+        <span style="font-size:28px;color:#38bdf8;font-weight:700">\( \vec{E} \)</span>
+        <span style="font-size:26px;color:#64748b">· q</span>
+      </div>
+      <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:16px 32px;
+        display:flex;gap:12px;align-items:center">
+        <span style="font-size:28px;color:#4ade80;font-weight:700">V</span>
+        <span style="font-size:26px;color:#64748b">=</span>
+        <span style="font-size:28px;color:#fbbf24">U</span>
+        <span style="font-size:26px;color:#64748b">/ q</span>
+      </div>
+      <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:16px 32px;
+        display:flex;gap:12px;align-items:center">
+        <span style="font-size:28px;color:#38bdf8;font-weight:700">\( \vec{E} \)</span>
+        <span style="font-size:26px;color:#64748b">=</span>
+        <span style="font-size:26px;color:#94a3b8">−dV/dr</span>
+      </div>
+      <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:16px 32px;
+        display:flex;gap:12px;align-items:center">
+        <span style="font-size:26px;color:#fbbf24;font-weight:700">W</span>
+        <span style="font-size:26px;color:#64748b">=</span>
+        <span style="font-size:26px;color:#94a3b8">q · ΔV</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</deck-stage>
+
+<script>
+window.addEventListener('load', function () {
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise().catch(function (e) { console.error('MathJax:', e); });
+  }
+});
+</script>
+
+<!-- Tweaks panel -->
+<style>
+  #tweaks-panel {
+    display: none;
+    position: fixed;
+    bottom: 72px;
+    right: 24px;
+    width: 300px;
+    background: #1e293b;
+    border: 1.5px solid rgba(56,189,248,.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    z-index: 9999;
+    font-family: 'Poppins', sans-serif;
+    color: #f1f5f9;
+    font-size: 14px;
+  }
+  #tweaks-panel h3 { font-size:15px; font-weight:700; color:#38bdf8; margin-bottom:16px; letter-spacing:.06em; text-transform:uppercase; }
+  .tweak-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .tweak-row label { font-size:13px; color:#94a3b8; }
+  .tweak-row select, .tweak-row input[type=range] { background:#0f172a; border:1px solid rgba(255,255,255,.1); border-radius:6px; color:#f1f5f9; padding:4px 8px; font-size:13px; }
+</style>
+<div id="tweaks-panel">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <label>Color acento</label>
+    <select id="tw-accent" onchange="applyTweaks()">
+      <option value="blue">Celeste</option>
+      <option value="purple">Violeta</option>
+      <option value="orange">Naranja</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Brillo de fondo</label>
+    <input type="range" id="tw-bright" min="0" max="30" value="0" step="2" oninput="applyTweaks()">
+  </div>
+</div>
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "purple",
+  "brightness": 14
+}/*EDITMODE-END*/;
+
+function applyTweaks() {
+  const accent = document.getElementById('tw-accent').value;
+  const bright = parseInt(document.getElementById('tw-bright').value) || 0;
+  const colors = {
+    blue:   { main: '#38bdf8', sec: '#4ade80' },
+    purple: { main: '#a78bfa', sec: '#f472b6' },
+    orange: { main: '#fb923c', sec: '#fbbf24' }
+  };
+  const c = colors[accent] || colors.blue;
+  document.querySelectorAll('.tag').forEach(el => el.style.color = c.main);
+  document.querySelectorAll('.rule').forEach(el => el.style.background = c.main);
+  document.querySelectorAll('.accent-blue').forEach(el => el.style.color = c.main);
+  document.querySelectorAll('section').forEach(el => {
+    if (!el.style.background || el.style.background.includes('0f172a') || el.style.background.includes('080e1c') || el.style.background.includes('071')) {
+      const base = bright > 0 ? `rgba(255,255,255,${bright/1000})` : 'transparent';
+      el.style.background = '';
+    }
+  });
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accent, brightness: bright }}, '*');
+}
+
+// Load saved tweaks
+(function() {
+  const saved = Object.assign({}, TWEAK_DEFAULTS);
+  const accentEl = document.getElementById('tw-accent');
+  const brightEl = document.getElementById('tw-bright');
+  if (accentEl) accentEl.value = saved.accent || 'blue';
+  if (brightEl) brightEl.value = saved.brightness || 0;
+})();
+
+// Tweaks toggle
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === '__activate_edit_mode') {
+    document.getElementById('tweaks-panel').style.display = 'block';
+  } else if (e.data && e.data.type === '__deactivate_edit_mode') {
+    document.getElementById('tweaks-panel').style.display = 'none';
+  }
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+</body>
+</html>
