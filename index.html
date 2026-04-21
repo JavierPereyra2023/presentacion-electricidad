@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Electricidad: Ley de Coulomb, Campo y Potencial Eléctrico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -16,7 +17,10 @@ MathJax = {
 <script src="deck-stage.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#000; font-family:'Poppins',sans-serif; }
+html { scroll-behavior:smooth; }
+body { background:#000; font-family:'Poppins',sans-serif; overflow-x:hidden; }
+deck-stage { display:block; width:100%; max-width:100%; }
+svg[width] { max-width:100%; height:auto; }
 
 section {
   background:#0f172a;
@@ -24,6 +28,7 @@ section {
   font-family:'Poppins',sans-serif;
   display:flex;
   flex-direction:column;
+  width:100%;
 }
 
 /* ── Shared helpers ─────────────────── */
@@ -81,6 +86,132 @@ tr:nth-child(even) td { background:rgba(255,255,255,.025); }
 }
 .answer-green { border-color:rgba(74,222,128,.4);
   background:linear-gradient(135deg,rgba(74,222,128,.12),rgba(56,189,248,.07)); }
+
+.table-wrap {
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius:18px;
+}
+
+.table-wrap table {
+  min-width:780px;
+}
+
+@media (max-width: 1024px) {
+  section {
+    min-height:auto;
+    padding:64px 48px !important;
+  }
+
+  .tag { font-size:18px !important; }
+  .slide-title { font-size:clamp(2.4rem, 5vw, 3.5rem) !important; }
+  .body-text { font-size:26px !important; }
+  .rule { margin-bottom:32px !important; }
+
+  .hero-section {
+    align-items:flex-start !important;
+    padding:72px 48px !important;
+  }
+
+  .hero-copy {
+    max-width:none !important;
+  }
+
+  .hero-graphic {
+    position:static !important;
+    transform:none !important;
+    margin:40px auto 0;
+    width:min(70vw, 360px) !important;
+    height:auto !important;
+    display:block;
+  }
+
+  section > div[style*="display:grid"][style*="grid-template-columns"],
+  section > div > div[style*="display:grid"][style*="grid-template-columns:1fr 1fr"],
+  section > div > div[style*="display:grid"][style*="grid-template-columns:1fr 1fr 1fr"] {
+    grid-template-columns:1fr !important;
+    gap:32px !important;
+  }
+
+  section > div[style*="display:flex"][style*="gap:20px"],
+  section > div[style*="display:flex"][style*="gap:28px"],
+  section > div[style*="display:flex"][style*="gap:44px"] {
+    flex-direction:column !important;
+  }
+
+  [style*="font-size:64px"] { font-size:48px !important; }
+  [style*="font-size:52px"] { font-size:42px !important; }
+  [style*="font-size:44px"] { font-size:36px !important; }
+  [style*="font-size:34px"] { font-size:28px !important; }
+  [style*="font-size:30px"] { font-size:24px !important; }
+  [style*="font-size:28px"] { font-size:22px !important; }
+  [style*="font-size:26px"] { font-size:20px !important; }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding:40px 20px !important;
+  }
+
+  .tag {
+    font-size:14px !important;
+    letter-spacing:.12em !important;
+  }
+
+  .slide-title { font-size:clamp(2rem, 8vw, 2.8rem) !important; }
+  .body-text {
+    font-size:20px !important;
+    line-height:1.6 !important;
+  }
+
+  .fbox,
+  .answer,
+  .step {
+    padding:20px !important;
+  }
+
+  [style*="padding:40px 36px"],
+  [style*="padding:32px 40px"],
+  [style*="padding:32px 48px"],
+  [style*="padding:24px 36px"],
+  [style*="padding:22px 28px"] {
+    padding:18px 16px !important;
+  }
+
+  [style*="font-size:100px"] {
+    font-size:52px !important;
+    line-height:1.02 !important;
+  }
+
+  [style*="font-size:72px"] { font-size:42px !important; }
+  [style*="font-size:64px"] { font-size:36px !important; }
+  [style*="font-size:52px"] { font-size:34px !important; }
+  [style*="font-size:44px"] { font-size:30px !important; }
+  [style*="font-size:34px"] { font-size:22px !important; }
+  [style*="font-size:30px"] { font-size:20px !important; }
+  [style*="font-size:28px"] { font-size:19px !important; }
+  [style*="font-size:26px"] { font-size:18px !important; }
+  [style*="font-size:24px"] { font-size:16px !important; }
+
+  .hero-graphic {
+    width:min(82vw, 320px) !important;
+  }
+
+  .table-wrap {
+    margin:0 -4px;
+  }
+
+  .table-wrap table {
+    min-width:680px;
+  }
+
+  #tweaks-panel {
+    width:calc(100vw - 32px);
+    right:16px;
+    bottom:16px;
+  }
+}
 </style>
 </head>
 <body>
@@ -88,7 +219,7 @@ tr:nth-child(even) td { background:rgba(255,255,255,.025); }
 
 
 <!-- ═══ SLIDE 1 · PORTADA ══════════════════════════════════════════════ -->
-<section data-label="Portada" style="
+<section class="hero-section" data-label="Portada" style="
   background:#080e1c; justify-content:center; align-items:flex-start;
   padding:0 160px; position:relative; overflow:hidden;">
 
@@ -120,7 +251,7 @@ tr:nth-child(even) td { background:rgba(255,255,255,.025); }
 
 
   <!-- Main copy -->
-  <div style="position:relative;z-index:1;max-width:920px">
+  <div class="hero-copy" style="position:relative;z-index:1;max-width:920px">
     <div style="font-size:24px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
       color:#4ade80;margin-bottom:28px">Electrostática</div>
     <div style="display:inline-flex;align-items:center;padding:10px 18px;border-radius:999px;
@@ -140,7 +271,7 @@ tr:nth-child(even) td { background:rgba(255,255,255,.025); }
   </div>
 
   <!-- Decorative charge illustration -->
-  <svg style="position:absolute;right:140px;top:50%;transform:translateY(-50%)"
+  <svg class="hero-graphic" style="position:absolute;right:140px;top:50%;transform:translateY(-50%)"
     width="360" height="360" viewBox="0 0 360 360">
     <defs>
       <radialGradient id="cg1" cx="40%" cy="35%" r="65%">
@@ -890,6 +1021,7 @@ tr:nth-child(even) td { background:rgba(255,255,255,.025); }
   <h2 class="slide-title" style="margin-bottom:44px">Fuerza, Campo y Potencial</h2>
   <div class="rule"></div>
 
+  <div class="table-wrap">
   <table>
     <thead>
       <tr>
@@ -931,6 +1063,7 @@ tr:nth-child(even) td { background:rgba(255,255,255,.025); }
       </tr>
     </tbody>
   </table>
+  </div>
 
   <div style="margin-top:44px;background:rgba(56,189,248,.07);border-radius:14px;
     padding:24px 36px;display:flex;gap:20px;align-items:center">
